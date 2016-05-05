@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<!-- saved from url=(0071)http://w3.ualg.pt/~pjguerreiro/sites/26_aed_1516/problems/eratosthenes/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="./Eratóstenes em Hanói_files/style.css">
+		<title>Eratóstenes em Hanói</title>
+	</head>
+<body>
+<h1>Eratóstenes em Hanói</h1>
+
+<h2>Preliminares</h2>
+
+<p>Este guião é novamente sobre algoritmos clássicos e respetiva animação. Aproveitaremos para exercitar algumas classes novas, designadamente <code>Bag&lt;T&gt;</code>, <code>Stack&lt;T&gt;</code> e <code>ArrayBag&lt;T&gt;</code>. Ou, inversamente, este guião é sobre as novas classes <code>Bag&lt;T&gt;</code>, <code>Stack&lt;T&gt;</code> e <code>ArrayBag&lt;T&gt;</code>, exemplificadas a propósito de dois algoritmos clássicos.</p>
+
+<p>Note bem: aquelas três classes são fornecidas e devem ser usadas tal e qual. </p>
+
+<h2>O crivo de Eratóstenes </h2>
+
+<figure><img src="./Eratóstenes em Hanói_files/eratosthenes.jpg"></figure>
+
+<p>Eratóstenes foi um notável matemático grego do século III a.C. Entre outras coisas, calculou o perímetro da circunferência da Terra, resolveu o problema da duplicação do cubo e inventou um engenhoso método para calcular números primos, o chamado crivo de Eratóstenes, <a href="https://en.wikipedia.org/wiki/Eratosthenes">https://en.wikipedia.org/wiki/Eratosthenes</a>.</p>
+
+<p>A ideia do crivo é muito simples, e está ilustrada na página da Wikipédia. Suponha que queremos calcular o conjunto de todos os números primos até <em>X</em>. Então começamos com o conjunto 2..<em>X</em>, de todos os números entre 2 e <em>X</em>, e logo retiramos dele todos os números pares, excepto o 2, que é primo. O menor número maior do que 2 que resta é 3, um número primo. Então retiramos todos os múltiplos de 3, excepto o 3. O menor número maior que 3 que resta é 5, um número primo. Fazemos o mesmo com o 5, eliminado os seus múltiplos maiores do que ele, e assim por diante, enquanto houver números para retirar. Quando não houver, todos os números que restam são números primos.</p>
+
+<p>Vamos implementar o crivo com dois métodos: o método clássico e o método moderno.</p>
+
+<h3>Crivo clássico</h3>
+
+<p>No método clássico, o crivo é representado por um array de booleanos com capacidade <em>X</em>+1. Inicialmente todas os elementos valem <code>false</code>. Valer <code>false</code> significa que o número respetivo está no crivo; valer <code>true</code>, significa que foi eliminado.</p>
+
+<p>Numa primeira passagem passamos a <code>true</code> todos os múltiplos de 2, exceto o 2, assim eliminando esses números; a seguir, na segunda passagem, eliminamos todos os múltiplos do primeiro número não eliminado maior que 2, que será o 3, exceto o 3; depois na passagem seguinte, eliminamos todos os múltiplos do primeiro número não eliminado maior que 3 que será o 5, exceto o 5; etc. Quando numa passagem não se fizer nenhuma eliminação, o processo estará completo.</p>
+
+<p>Na verdade, podemos incluir algumas otimizações. A primeira consiste em começar cada passagem pelo quadrado do “líder” dessa passagem, isto é, o quadrado do tal primeiro número não eliminado maior que o outro. Claro! </p>
+
+<p>A segunda otimização deriva da primeira: não é preciso controlar se houve eliminações em cada passagem para terminar quando não tiver havido. Sabemos que não haverá quando o quadrado do líder for maior ou igual a X.</p>
+
+<p>Programe uma classe <code>Eratosthenes</code> e um método estático <code>sieveClassic</code> que dado um número inteiro <em>X</em>, maior ou igual a 2, retorna um <code>ArrayBag&lt;Integer&gt;</code> com todos os números primos do intervalo fechado 0..<em>X</em>.</p>
+
+<p>Programe também uma função de teste, a qual, de início aceita o valor de <em>X</em>, corre o crivo e afixa o número de números primos existentes no crivo; depois, ciclicamente, até ao fim dos dados, aceita números inteiros positivos, indicando para cada um desses números, <em>i</em>, o i-ésimo número primo, se <em>i</em> for menor ou igual ao número de número primos presente no crivo ou -1 se não.</p>
+
+<p>Restrição: <em>X</em> será sempre maior ou igual 2 e <em>i</em> será sempre maior o igual a 1.</p>
+
+<p>Note bem: o 1-ésimo número primo é 2.</p>
+
+<p>Submeta no problema A.</p>
+
+<h3>Nota técnica</h3>
+
+<p>Neste problema e nos outros, deve submeter apenas a classe pedida, na forma de um único ficheiro .java. As classes fornecidas já estão no servidor. </p>
+
+<p>Se ao resolver o problema tiver programado classes adicionais, além da classe explicitamente pedida, essas classes devem vir no mesmo ficheiro .java, a seguir à outra.</p>
+
+<h3>Crivo moderno</h3>
+
+<p>Em vez de usar um array de booleanos, que é uma coisa antiquada, programemos o crivo usando diretamente um <code>ArrayBag&lt;Integer&gt;</code> onde inicialmente metemos todos os números entre 2 e X, inclusive. Depois, na primeira passagem, filtramos os que não são múltiplos de 2, exceto o 2; na segunda passagem, filtramos os que não são múltiplos de 3, exceto o 3; etc.</p>
+
+<p>Nota: quando dizemos filtramos os elementos que verificam um dado predicado <em>P</em>, queremos dizer que guardamos os que verificam <em>P</em> e deitamos fora os que não verificam. Portanto, ao filtrar os que não são múltiplos, estaremos a eliminar os que são múltiplos, como convém.</p>
+
+<p>Programe na classe <code>Eratosthenes</code> um método estático <code>sieveModern</code> que dado um X retorna um <code>ArrayBag&lt;Integer&gt;</code> com todos os números primos do intervalo fechado 0..<em>X</em>. Programe também uma função de teste análoga à da tarefa anterior.</p>
+
+<p>Submeta no problema B.</p>
+
+<h3>Animação do crivo</h3>
+
+<p>Estude o esquete <a href="http://w3.ualg.pt/~pjguerreiro/sites/26_aed_1516/progs/SieveDemoSketch.java.txt">SieveDemoSketch</a>, que escreve na janela uma linha com os números de 0 a 31, ou de 0 ao número indicado na linha de comando, e que depois apaga, ao ritmo indicado na constante <code>HERTZ</code>, um deles, proveniente de um array que terá sido lido da consola.</p>
+
+<p>Depois de ter percebido este esquete, escreva outro para animar o algoritmo do crivo de Eratóstenes. Para ser interessante, deve suportar números pelo menos até 1000, dispostos em linhas sucessivas.</p>
+
+<p>Submeta no problema A do concurso de esquetes. </p>
+
+<h2>A Torre de Hanói</h2>
+
+<figure><img src="./Eratóstenes em Hanói_files/hanoi1.jpg"></figure>
+
+<p>A torre de Hanoi é um <em>puzzle</em> matemático que constitui uma praxe em programação. Veja a descrição na Wikipédia, em <a href="https://en.wikipedia.org/wiki/Tower_of_Hanoi">https://en.wikipedia.org/wiki/Tower_of_Hanoi</a> e também na correspondente página em português. </p>
+
+<p>Todos os programadores que se prezam alguma vez na vida programaram a Torre de Hanói. Se você ainda não programou, vai ser agora. Se já programou, considere-se veterano e programe mais uma vez, agora em Java com as nossas maravilhosas classes.</p>
+
+<p>Interessa-nos a solução recursiva, mencionada na página da Wikipedia, mas não a leve à letra. Aliás, na página em português há mesmo uma implementação recursiva em Java, mas esqueça.</p>
+
+<p>Em “programmer-speak”, diremos que no problema da Torre de Hanói temos um array com três pilhas de inteiros. De início há <em>N</em> números na pilha 0, empilhados por ordem decrescente. Queremos desempilhar esses <em>N</em> números da pilha 0 e empilhá-los, também por ordem decrescente, na pilha 1, usando a pilha 2 como intermediária no processo, garantindo que em cada passo, os números estão distribuídos pelas três pilhas, e sempre empilhados por ordem decrescente em cada uma delas. </p>
+
+<p>Como fazer?</p>
+
+<p>A solução será uma sequência de comandos da forma “desempilhar da pilha X e empilhar o valor desempilhado na pilha Y”. Por outras palavras, a solução programada será uma sequência de pares &lt;X, Y&gt;, cada um deles representando um desses comandos.</p>
+
+<p>Representando cada par por meio de um array com dois elementos, a solução será representada por um objeto de tipo <code>Bag&lt;int[]&gt;</code>. Portanto, precisamos de um método <code>solve</code> com a seguinte assinatura:</p>
+
+<pre><code>private static Bag&lt;int[]&gt; solve(int n, int x, int y, int z)
+</code></pre>
+
+<p>O argumento <code>n</code> representa o número de discos, o argumento <code>x</code> representa a pilha inicial, o argumento <code>y</code> representa a pilha final e o argumento <code>z</code> representa a pilha auxiliar. </p>
+
+<p>Suponhamos que, por milagre, sorte ou muito estudo, já sabemos resolver o problema quando a pilha inicial tem <code>n-1</code> números. Será que a partir disso também saberemos resolver quando a pilha inicial tem <code>n</code> números?</p>
+
+<p>De facto, uma estratégia para calcular <code>solve(n, x, y, z)</code> é a seguinte:</p>
+
+<p>Primeiro calculamos <code>solve(n-1, x, z, y)</code>, o que sabemos fazer, desempilhando todos os números da pilha <code>x</code>, exceto o último, e empilhando-os na pilha <code>z</code>, usando a pilha <code>y</code> como intermediária. Depois desta operação (que pode ser deveras longa), a pilha <code>x</code> só tem um elemento, a pilha <code>z</code> tem todos os outros <code>n-1</code> elementos, e a pilha <code>y</code> está vazia. Podemos então desempilhar da pilha <code>x</code> o elemento restante e empilhá-lo na pilha <code>y</code> (que estava vazia). Ou seja, acrescentamos ao resultado o movimento <code>&lt;x, y&gt;</code>. Nesta altura a pilha <code>x</code> está vazia, a pilha <code>y</code> tem um elemento que é o maior de todos e, como vimos, a pilha <code>z</code> tem todos os outros <code>n-1</code> elementos. Bom, resta passar os <code>n-1</code> elementos da pilha <code>z</code> para a pilha <code>y</code>, usando a pilha <code>x</code> como intermediária, o que se faz chamando <code>solve(n-1, z, y, x)</code>.</p>
+
+<p>Ah, se <code>n</code> valer 0, não há nada a fazer, claro.</p>
+
+<p>Subsiste uma questão técnica interessante. Para evitar estar a fazer a concatenação sucessiva dos sacos que transmitem os resultados do método <code>solve</code>, é mais prático usar um método privado que tem como argumento suplementar o resultado em construção:</p>
+
+<pre><code>private static void solveNow(int n, int x, int y, int z, Bag&lt;int[]&gt; r)
+</code></pre>
+
+<p>Agora, o método <code>solve</code> fica assim:</p>
+
+<pre><code>private static Bag&lt;int[]&gt; solve(int n, int x, int y, int z)
+{
+   Bag&lt;int[]&gt; result = new Bag&lt;&gt;();
+   solveNow(n, x, y, z, result);
+   return result;
+}
+</code></pre>
+
+<p>Programe uma classe <code>Hanoi</code>, acrescente o método <code>solveNow</code> e programe o método <code>solve</code>.</p>
+
+<p>O construtor deve ter como argumento o número de discos na pilha inicial, <em>N</em>, e deve logo construir a solução, a qual deve depois ficar acessível por meio de um método público ad hoc. Havendo <em>N</em> discos, cada um deles será representado univocamente por um número entre 1 e <em>N</em>.</p>
+
+<p>Experimente, contando o número de movimentos, para comprovar que são 2<sup><em>N</em></sup>-1. Para caso pequenos, mostre também a sequência de movimentos da solução.</p>
+
+<p>Adicione um método <code>play</code> para calcular as três pilhas após M movimentos. A assinatura deve ser a seguinte:</p>
+
+<pre><code>public ArrayBag&lt;Stack&lt;Integer&gt;&gt; play(int m)
+</code></pre>
+
+<p>Programe uma função de teste para experimentar a classe <code>Hanoi</code> e o método <code>play</code>. De início, a função aceita o valor de <em>N</em> e depois, ciclicamente, até ao fim dos dados, um valor <em>M</em>, para representar o argumento <code>m</code> da função. Por cada chamada da função <code>play</code>, a função de teste escreve três linhas, uma para cada pilha. Em cada linha vêm os valores que estão na pilha, de cima para baixo, separados por um espaço, ou apenas um asterisco, no caso de a pilha ser vazia. A primeira linha de cada grupo de três corresponde à primeira pilha, etc. Se o valor <em>M</em> for maior que o número de movimentos necessários para resolver o puzzle, o programa deve escrever a configuração final.</p>
+
+<p>Submeta no problema C.</p>
+
+<h2>Animação da Torre de Hanói</h2>
+
+<p>Programe um esquete para animar o algoritmo da Torre de Hanói. O esquete deve pelo menos permitir observar a evolução da pilhas de discos ao longo das operações.</p>
+
+<p>Submeta no problema B do concurso de esquetes.</p>
+
+
+
+
+</body></html>

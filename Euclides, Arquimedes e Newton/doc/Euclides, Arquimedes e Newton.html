@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!-- saved from url=(0067)http://w3.ualg.pt/~pjguerreiro/sites/26_aed_1516/problems/euclides/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<link rel="stylesheet" type="text/css" href="./Euclides, Arquimedes e Newton_files/style.css">
+		<title>Euclides, Arquimedes e Newton</title>
+	</head>
+<body>
+<h1>Euclides, Arquimedes e Newton</h1>
+
+<h2>Problema A, Euclides</h2>
+
+<figure><img src="./Euclides, Arquimedes e Newton_files/euclides.jpg" title="Euclides"></figure>
+
+<p>Programe uma classe Euclid com métodos estáticos para calcular o máximo divisor comum usando o algoritmo de Euclides, nas suas diversas variantes.</p>
+
+<p>Inclua a função main, a qual chamará a uma função de teste que lê da consola pares de números inteiros positivos, calculando para cada par o máximo divisor comum usando a função de combate e escrevendo esse valor na consola.</p>
+
+<p>Requisito técnico: as leituras e escritas devem ser programadas recorrendo à biblioteca <code>algs4.jar</code>.</p>
+
+<h2>Problema B, Arquimedes</h2>
+
+<figure><img src="./Euclides, Arquimedes e Newton_files/archimedes.jpg" title="Archimedes"></figure>
+
+<p>Recentemente, o famoso matemático grego Arquimedes inventou um novo método geométrico para calcular o valor de π com a aproximação que desejarmos. Arquimedes, que é muito inteligente mas tem pouco jeito para desenhar, concebeu o seguinte método de cabeça:</p>
+
+<ol>
+	<li>Primeiro desenhou de cabeça uma circunferência centrada na origem, com raio 1.</li>
+	<li>Depois, desenhou (sempre de cabeça) um hexágono regular, inscrito na circunferência, com um vértice para cima e, portanto, com dois lados verticais.</li>
+	<li>Concentrou-se no lado vertical do lado direito.</li>
+	<li>Chamou <strong>O</strong> à origem, <strong>A</strong> ao extremo superior do segmento que constitui o lado vertical à direita e <strong>B</strong> ao extremo inferior desse lado.</li>
+	<li>Observou que o triângulo <strong>OAB</strong> é de um triângulo equilátero. Portanto, o lado vertical mede 1.</li>
+	<li>Desenhou (na sua cabeça) um raio horizontal, para a direita. Este raio interseta o segmento <strong>AB</strong> a meio, num ponto a que chamou <strong>C</strong>, e toca a circunferência num outro ponto, a que chamou <strong>D</strong>.</li>
+	<li>O segmento <strong>AC</strong> mede 0.5, claro.</li>
+	<li>Aqui, Arquimedes reconheceu que, recorrendo ao teorema do seu famoso colega Pitágoras, facilmente conseguiria calcular o comprimento do segmento <strong>OC</strong> e depois o do segmento <strong>CD</strong>.</li>
+	<li>E reconheceu também que, recorrendo de novo ao teorema do Pitágoras, facilmente calcularia o comprimento do segmento <strong>AD</strong> (que é igual ao do segmento <strong>BD</strong>, claro).</li>
+	<li>Ora, pensou Arquimedes com os seus botões, o segmento <strong>AD</strong> é o lado de um dodecágono regular inscrito na circunferência de lado unitário.</li>
+	<li>Isto significa que partindo do conhecimento da medida do lado do hexágono regular, se consegue com umas contas simples calcular o lado do dodecágono regular.</li>
+	<li><em>Eureka!</em>, exclamou Arquimedes, generalizando: com a mesma técnica consegue-se calcular o lado de um polígono regular com <strong>2N</strong> lados, a partir do lado do polígono regular com <strong>N</strong> lados, no caso em que ambos estão inscritos na circunferência de raio unitário. </li>
+	<li>Logo, aplicando repetidamente o método, a partir do hexágono regular consegue-se calcular o lado do dodecágono regular, depois o do 24-gono regular, depois o do 48-gono e assim por diante, indefinidamente.</li>
+	<li>Tendo calculado o lado do polígono, para calcular o perímetro, basta multiplicar pelo número de lados, <em>duhhh</em>.</li>
+	<li>Quanto mais lados tiver o polígono, mas próximo estará o seu perímetro do perímetro da circunferência onde o polígono está inscrito.</li>
+	<li>Logo, a sucessão dos semiperímetros tende para π à medida que o número de lados tende para infinito.</li>
+	<li>Quer dizer, fazendo contas suficientes, conseguiremos chegar tão perto de π quanto quisermos.</li>
+</ol>
+
+<p>Este é, na sua essência, o algoritmo de Arquimedes para calcular π com aproximação arbitrária.</p>
+
+<p>Programe então uma classe <code>Archimedes</code> para fazer estes cálculos. Inclua um método estático <code>nextSide</code> que calcula a medida do lado de um polígono regular com <strong>2N</strong> lados inscrito na circunferência de raio unitário, dada a medida do lado do polígono regular com <strong>N</strong> lados inscrito na mesma circunferência. </p>
+
+<p>Inclua também uma função <code>semiperimeters</code>, que, dado o número de lados de um polígono regular inscrito numa circunferência de raio unitário e o comprimento do lado desse polígono, calcula o semiperímetro de cada um polígonos que se obtêm duplicando sucessivamente o número de lados, de acordo com o algoritmo de Arquimedes. Em cada passo, a função deve escrever na consola o número de lados e o semiperímetro, começando com os valores iniciais e terminando quando a diferença entre o semiperímetro corrente e o anterior for menor do que o valor de uma variável estática <code>epsilon</code>. A primeira aproximação é a que corresponde ao polígono inicial (e haverá sempre pelo menos duas aproximações).</p>
+
+<p>Em cada linha de saída surgirão dois números: um número inteiro representando o número de lados do polígono e um número <code>double</code> com 12 casas decimais representando o semiperímetro desse polígono.</p>
+
+<p>Requisito técnico: para calcular raizes quadradas, use a função <code>Math.sqrt</code>.</p>
+
+<p>A função de teste deve ler da consola o valor de <code>epsilon</code> e depois chamar a função <code>semiperimeters</code> com argumentos apropriados, isto é, 6 lados e comprimento 1.0 (no nosso caso, em que começamos com um hexágono).</p>
+
+<h2>Problema C, Newton</h2>
+
+<figure><img src="./Euclides, Arquimedes e Newton_files/newton.jpg" title="Newton"></figure>
+
+<p>Na verdade, os cálculos realizados por Arquimedes são simples, mas não são propriamente elementares, pois envolvem raízes quadradas. Como terá feito Arquimedes para calcular as raízes quadradas, já que não consta que possuísse calculadora eletrónica?</p>
+
+<p>Consta que mandou um email ao seu colega Isaac Newton, expondo-lhe o problema e pedindo ajuda: <em>Isaac, my brother, tens aí algum algoritmo para calcular raízes quadradas sem dar muito trabalho?</em></p>
+
+<p>Newton terá respondido também por email, mais ou menos nos seguintes termos:</p>
+
+<ol>
+	<li>Calcular a raiz quadrada de um número positivo Z equivale a achar o zero positivo da função y = x^2 - Z. </li>
+	<li>Imagina, Arquimedes, a parábola que constitui o gráfico dessa função. Ela cruza o eixo dos X em dois pontos e o da direita representa a raiz quadrada positiva de Z, que é a que tu queres. </li>
+	<li>Agora considera um ponto qualquer, no eixo dos X, à direita desse zero. Seja X0.</li>
+	<li>Aplicando a equação da parábola, calcula a ordenada da parábola na abcissa X0. Seja Y0.</li>
+	<li>Agora imagina a tangente à parábola no ponto (X0, Y0).</li>
+	<li>Está-se mesmo a ver que essa tangente vai cruzar o eixo dos X num ponto X1 ainda à direita do zero, mas mais próximo dele do que o nosso X0 inicial.</li>
+	<li>Nota que o declive da tangente é o valor da derivada da função y = x^2 - Z para x igual a X0.</li>
+	<li>Com um ponto e um declive, obténs a equação da reta.</li>
+	<li>Com a equação da reta, calculas X1 nas calmas.</li>
+	<li>Já vimos que X1 é uma melhor aproximação da raiz do que aquela por onde começámos.</li>
+	<li>Logo, é só repetir, agora a partir de X1, até ficares satisfeito com a aproximação obtida.</li>
+	<li>Cuidado com a aproximação inicial, a que chamámos X0. Convém que fique à direita da raiz, para que cada aproximação seja melhor que a anterior.</li>
+	<li>Faz assim: se Z for maior ou igual a 1, usa o valor de Z para X0. Se não, calcula a raiz de 1/Z (observando que, neste caso, 1/Z é maior do que 1 e, portanto, podes aplicar o nosso método) e no fim invertes o resultado.</li>
+</ol>
+
+<p>Acrescente à classe <code>Archimedes</code> um método estático <code>newton</code> para calcular a raiz quadrada de um número maior que 1, usando o método inventado por Newton. Programe um outro método, <code>mySqrt</code>, mais geral, que aceita como argumento qualquer número positivo. Não deixe de programar, logo para começar, um outro método <code>nextGuess</code>, que, dada uma aproximação X0 e valor Z cuja raiz queremos, calcula a próxima aproximação X1.</p>
+
+<p>A sua função de teste deve ler da consola uma sucessão de números positivos com valores entre 0.01 e 100.0 (inclusive) e calcular para cada um a raiz quadrada usando o método de Newton, escrevendo em cada linha da consola o valor do número lido e a raiz quadrada calculada, ambos com oito casas decimais, com um espaço entre os dois números. </p>
+
+
+
+
+</body></html>

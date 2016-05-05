@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!-- saved from url=(0063)http://w3.ualg.pt/~pjguerreiro/sites/26_aed_1516/problems/ludo/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<link rel="stylesheet" type="text/css" href="./Pinhal do Ludo_files/style.css">
+		<title>Pinhal do Ludo</title>
+	</head>
+<body>
+<h1>Pinhal do Ludo</h1>
+
+<p>O Processing, que todos conhecemos tão bem, tem por objetivo educar-nos nas artes visuais. A chatice é que nós temos pouco jeito para o desenho. Para nós, programadores inveterados, telas, só mesmo as telas dos computadores.</p>
+
+<p>Mas façamos a vontade ao Processing e dediquemo-nos por um momento à arte computacional abstrata aleatória paisagística bucólica. Quem sabe se vamos conseguir realizar alguma obra prima.</p>
+
+<p>Pois bem: o nosso objetivo hoje é desenhar abstratamente uma floresta, isto é, um conjunto de árvores. Mas não têm de ser árvores normais, como os pinheiros do Ludo ou as laranjeiras do Patacão. Queremos árvores <em>conceptuais</em>. Para nós, uma árvore conceptual será um conjunto de segmentos conexos tais que nenhum subconjunto desse conjunto de segmentos forma um polígono. Por exemplo, no desenho seguinte, observamos cinco árvores: duas vermelhas, com 4 ramos; duas verdes, com três ramos; e uma azul, com um ramo:</p>
+
+<figure><img src="./Pinhal do Ludo_files/ludo_1.png"></figure>
+
+<p>Já o desenho seguinte não serve, pois a “árvore” da direita não é uma árvore, uma vez que inclui um polígono:</p>
+
+<figure><img src="./Pinhal do Ludo_files/ludo_2.png"></figure>
+
+<p>O nosso objetivo é escrever um programa para desenhar florestas automaticamente. </p>
+
+<p>O programa deve ler os segmentos de um ficheiro e acrescentar cada um deles ao desenho, sucessivamente, se esse segmento não estragar o desenho, isto é, se não causar o aparecimento de um polígono. Depois, todas as árvores com um certo tamanho serão pintadas da mesma cor, tal como nos desenhos acima, o que produzirá um estonteante efeito visual, mas isso far-se-á depois.</p>
+
+<h2>Primeira tarefa</h2>
+
+<p>Escreva um programa que leia uma sequência de segmentos e que desenhe (imaginariamente) cada um dos segmentos lidos desde que esse segmento não provoque a introdução de um polígono no desenho já realizado.</p>
+
+<h2>Input</h2>
+
+<p>A primeira linha do ficheiro de entrada tem dois números inteiros, <strong>W</strong> e <strong>H</strong>, representando a largura e a altura da tela do desenho. Seguem-se linhas em número indeterminado. Em cada linha vêm quatro números: <strong>X1</strong>, representado a coordenada <em>x</em> do um dos extremos do segmento; <strong>Y1</strong>, representando a coordenada <em>y</em> do mesmo extremo; <strong>X2</strong>, representando a coordenada <em>x</em> do outro extremo; e <strong>Y2</strong>, representando a coordenada <em>y</em> do outro extremo.</p>
+
+<h2>Output</h2>
+
+<p>O ficheiro de saída conterá uma tabela com a contagem das árvores por tamanho. Em cada linha vêm dois números separados por um espaço. O primeiro é o tamanho da árvore; o segundo é o número de árvores no desenho que têm esse tamanho. As linhas vêm por ordem crescente de tamanho e não devem aparecer linhas respeitantes aos tamanhos para os quais o número de árvores é zero.</p>
+
+<h2>Restrições</h2>
+
+<p>Largura da tela, <strong>W</strong>: 2 ≤ <strong>W</strong> ≤ 1000;</p>
+
+<p>Altura da tela, <strong>H</strong>: 2 ≤ <strong>H</strong> ≤ 1000;</p>
+
+<p>Coordenadas <em>x</em>, <strong>X1</strong>, <strong>X2</strong>: 0 ≤ <strong>X1</strong> &lt; <strong>W</strong>; 0 ≤ <strong>X2</strong> &lt; <strong>W</strong>;</p>
+
+<p>Coordenadas <em>y</em>, <strong>Y1</strong>, <strong>Y2</strong>: 0 ≤ <strong>Y1</strong> &lt; <strong>H</strong>; 0 ≤ <strong>Y2</strong> &lt; <strong>H</strong>;</p>
+
+<h2>Exemplo de ficheiro de entrada</h2>
+
+<pre><code>10 8
+1 1 4 2
+2 4 6 4
+4 2 5 0
+4 3 4 5
+5 2 6 1
+3 5 4 2
+6 4 6 5
+7 2 6 1
+</code></pre>
+
+<h2>Exemplo de ficheiro de saída</h2>
+
+<pre><code>1 1
+3 2
+4 2
+</code></pre>
+
+<p>NB: este exemplo corresponde à primeira figura e não ao exemplo do ficheiro de entrada.</p>
+
+<h2>Segunda tarefa</h2>
+
+<p>Programe um esquete para desenhar o “pinhal”, isto é, para desenhar os segmentos que se aproveitam (isto é, que não provocam a criação de polígonos), fazendo como indicado acima, desenhando todas as componentes do mesmo tamanho com a mesma cor. Ou então, se forem poucas componentes, desenhe cada componente com uma cor diferente ou outra coisa qualquer que lhe apeteça. </p>
+
+<h2>Referência</h2>
+
+<p>Este problema é uma variante do problema <em>Polygon Phobia</em>, da <a href="http://ciencias.ulisboa.pt/pt/conferencia/miup-2013">MIUP 2013</a>. A autora desse problema é a <a href="http://citi.di.fct.unl.pt/member/member.php?id=18">professora Margarida Mamede</a>, da Faculdade de Ciências e Tecnologia da Universidade Nova de Lisboa.</p>
+
+
+
+
+</body></html>

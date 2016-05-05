@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<!-- saved from url=(0070)http://w3.ualg.pt/~pjguerreiro/sites/26_aed_1516/problems/lukasiewicz/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<link rel="stylesheet" type="text/css" href="./Lukasiewicz_files/style.css">
+		<title>Lukasiewicz</title>
+	</head>
+<body>
+<h1>Lukasiewicz</h1>
+
+<figure><img src="./Lukasiewicz_files/Lukasiewicz_photo2.jpeg" title="Lukasiewicz"></figure>
+
+<h2>Notação polaca</h2>
+
+<p>De todos os cientistas mencionados no interessante artigo <a href="http://www.sigcis.org/files/A%20brief%20history.pdf">A brief history of the stack</a>, hoje interessa-nos um em especial: <a href="http://en.wikipedia.org/wiki/Jan_%C5%81ukasiewicz" title="Jan Lukasiewicz">Jan Lukasiewicz</a>.</p>
+
+<p>Lukasiewicz descobriu uma coisa fantástica, ainda que, aos nossos olhos de programadores experimentados, possa parecer completamente básica: os parêntesis nas expressões aritméticas, que todos nós fomos aprendendo a usar ao longo de vários anos de estudo da aritmética, afinal são dispensáveis. E aquela história, também tão difícil de aprender, que o sinal de vezes tem “mais força” do que o sinal de mais, é apenas uma complicação desnecessária. A vida seria muito mais fácil sem parêntesis!</p>
+
+<p>Nas palavras do próprio Lukasiewicz, “I came upon the idea of a parenthesis-free notation in 1924”. Na verdade, a notação sem parêntesis de que Lukasiewicz fala não é a das expressões aritméticas, mas sim a das expressões lógicas. A sua ideia fundamental, para dar cabo dos parêntesis, foi apenas escrever sistematicamente o operador antes dos operandos, e não no meio dos operandos, como de costume. Por exemplo, onde outros escrevem <code>x ⋁ y</code>, Lukasiewicz escreve <code>A x y</code>, usando a letra <code>A</code> para o operador de disjunção, em vez do símbolo <code>⋁</code> (mas aqui a mudança do símbolo do operador é acessória). A ideia simples é que cada operador se aplica sobre os operandos que vêm a seguir, na expressão, de acordo com a <em>aridade</em> do operador. Em lógica, e também em matemática e em informática, chamamos aridade de uma função ou de um operador ao número de argumentos (para a função) ou de operandos (para o operador). Por isso, a expressão <code>A A x y z</code>, por exemplo, significa <code>(x ⋁ y) ⋁ z</code>: o operador A tem aridade 2; logo o segundo <code>A</code> aplica-se a <code>x</code> e <code>y</code>; o primeiro <code>A</code> aplica-se ao resultado de <code>A x y</code> e a <code>z</code>. Note que neste exemplo o primeiro <code>A</code> corresponde ao segundo <code>⋁</code> e o segundo A ao primeiro <code>⋁</code>.</p>
+
+<p>É claro que nós sabemos que na expressão <code>(x ⋁ y) ⋁ z</code> os parêntesis não fazem falta, mas isso é uma consequência das propriedades do operador <code>⋁</code>, neste caso a associatividade. Se não soubéssemos nada sobre o operador, e à falta de outras regras gerais sobre a ordem por que as operações se devem efetuar, os parêntesis seriam essenciais, pois determinam explicitamente o encadeamento dos cálculos. Por exemplo, a expressão <code>A x A y z</code> significa <code>x ⋁ (y ⋁ z)</code>. Da lógica, nós sabemos que esta expressão e a anterior são equivalentes, isto é, têm o mesmo valor quaisquer que sejam os valores de <code>x</code>, <code>y</code> e <code>z</code>, mas não deixam de ser expressões diferentes. Finalmente, quando habitualmente escrevemos <code>x ⋁ y ⋁ z</code> (sem parêntesis), isto é apenas uma simplificação de <code>(x ⋁ y) ⋁ z</code>, por via da regra que operações com a mesma precedência se avaliam da esquerda para a direita.</p>
+
+<p>Já vimos que Lukasiewicz usava <code>A</code> para a disjunção lógica. As outras operações eram <code>K</code> para a conjunção, <code>I</code> para a implicação, <code>E</code> para a equivalência, <code>D</code> para aquilo a que chamamos o operador <strong>NAND</strong>, <code>N</code> para a negação e <code>O</code> (letra ó) para o valor lógico <code>Falso</code>. Recorde que <em>A implica B</em> significa <em>não A ou B</em>; <em>A é equivalente a B</em> significa “ambos valem falso ou ambos valem verdadeiro”. </p>
+
+<p>Calculo que Lukasiewicz tenha escrito algures que <code>I x y</code> é o mesmo que <code>A N x y</code>, que <code>E x y</code> é o mesmo que <code>A K x y K N x N y</code> e que <code>D x y</code> é o mesmo <code>N K N x N y</code>, tal como nós já sabemos há muito tempo. </p>
+
+<p>A nossa primeira tarefa de hoje é programar um avaliador de expressões lógicas escritas em <em>notação polaca</em>, isto é, na notação inventada por Lukasiewicz, que era polaco, bem entendido. O programa deve ler uma linha contendo uma expressão lógica em notação polaca e escrever <code>false</code>, se o valor da expressão for <code>O</code> e <code>true</code> se não, repetindo, enquanto houver mais linhas para ler.</p>
+
+<p>Eis um exemplo de uma sessão fictícia com o programa, em que temos alternadamente a linha escrita pelo utilizador e a linha de resposta produzida pelo programa:</p>
+
+<pre><code>AONO
+true
+KAONOKNOO
+false
+NNNO
+true
+</code></pre>
+
+<p>Para nós, peritos em pilhas, o algoritmo para isto é de caras: percorremos a cadeia de caracteres de trás para a frente; se apanhamos <code>O</code>, empilhamos <code>false</code>; se não, desempilhamos tantas vezes quantas a aridade do operador, operamos e empilhamos o resultado.</p>
+
+<p>No seu programa, a função que faz os cálculos terá o seguinte cabeçalho:</p>
+
+<pre><code>public static boolean polish(String s)
+</code></pre>
+
+<p>Submeta no problema A.</p>
+
+<h2>RPN</h2>
+
+<p>Na verdade, a notação que nos interessa em informática é notação polaca reversa, em inglês, <em>reverse polish notation</em>, que abreviamos pela universalmente reconhecida sigla <strong>RPN</strong>. Nesta notação, os operadores vêm depois dos operandos. Por exemplo em RPN <code>3+4</code> escreve-se <code>3 4 +</code>; <code>(5+6)*7</code> escreve-se <code>5 6 + 7 *</code>. </p>
+
+<p>Dizemos que a RPN é uma notação <em>pós-fixa</em>, porque o operador vem depois dos operandos. Já a notação polaca de Lukasiewicz é <em>prefixa</em>: os operadores vêm antes dos operandos. A notação aritmética habitual é <em>infixa</em>: os operadores vêm entre os operandos.</p>
+
+<p>Note bem: na notação polaca prefixa, <code>(5+6)*7</code> escreve-se <code>* + 5 6 7</code>. Comparando com o exemplo anterior, isto mostra que a notação pós-fixa NÃO é apenas a notação prefixa de trás para a frente.</p>
+
+<p>Já o algoritmo para avaliar uma expressão pós-fixa é análogo ao que vimos na tarefa A, mas agora percorrendo a expressão da esquerda para a direita: se for um número, empilha-se; se for um operador, desempilha-se, etc.</p>
+
+<p>A segunda tarefa de hoje é programar um avaliador de expressões aritméticas RPN. O seu programa lerá uma expressão por linha, onde cada dois toquenes consecutivos vêm separados por um único espaço e para cada expressão escreverá o seu valor. Considere os quatro operadores aritméticos habituais e a raiz quadrada, <code>sqrt</code>. Eis um exemplo:</p>
+
+<pre><code>5 6 + 7 *
+77.0
+5 2 - 1 2 + /
+1.0
+1 2 2 + + 5 * sqrt 2 /
+2.5
+</code></pre>
+
+<p>No seu programa, a função que faz os cálculos terá o seguinte cabeçalho:</p>
+
+<pre><code>public static double evaluationRPN(String[] ss)
+</code></pre>
+
+<p>Submeta no problema B.</p>
+
+<p>Requisito técnico: escreva os números <code>double</code> com a função <code>println</code> da classe <code>StdOut</code>.</p>
+
+<h2>Conversão infixo-RPN, expressões parentetizadas</h2>
+
+<p>Como pudemos apreciar na tarefa B, avaliar uma expressão RPN é muito simples (e muito sofisticado, também). Portanto, se tivermos de avaliar uma expressão aritmética “normal”, uma técnica viável será convertê-la para RPN e depois aplicar o algoritmo da tarefa B. </p>
+
+<p>O nosso objetivo nesta tarefa e na próxima é programar essa conversão.</p>
+
+<p>Na verdade, já sabemos, das aulas, como avaliar diretamente uma expressão aritmética completamente parentetizada. Ora, duas pequenas modificações do algoritmo de avaliação permitem passar da notação infixa completamente parentetizada para RPN, observando desde já que agora o resultado não será um número mas sim um saco de cadeias de caracteres: por um lado, os operandos são ensacados (isto é, transferidos para o saco que representa o resultado da função); por outro, quando se apanha um parêntesis a abrir, “)”, desempilha-se um operando e ensaca-se.</p>
+
+<p>A terceira tarefa de hoje é escrever um programa para converter de notação completamente parentetizada para RPN. O seu programa lerá uma expressão aritmética válida e calculará um saco com os tóquenes da RPN, repetitivamente. A cada passo, o saco calculado é escrito na consola, com um espaço entre cada dois elementos. Eis um exemplo de utilização:</p>
+
+<pre><code>(3+6)
+3 6 +
+((2*(sqrt 9))/5) 
+2 9 sqrt * 5 /
+(sqrt(1+(sqrt(1+(sqrt(1+(sqrt 2)))))))
+1 1 1 2 sqrt + sqrt + sqrt + sqrt
+</code></pre>
+
+<p>No seu programa, a função que faz os cálculos terá o seguinte cabeçalho:</p>
+
+<pre><code>public static ArrayBag&lt;String&gt; infixFullParenToRPN(String[] ss)
+</code></pre>
+
+<p>Submeta no problema C.</p>
+
+<h2>Conversão geral infixo-RPN</h2>
+
+<p>O caso geral é mais complicado, pois podem faltar parêntesis, e então é a precedência dos operadores que determina a ordem de avaliação, ou, inversamente, pode haver parêntesis supérfluos redundantes. A propósito, não sei se você reparou que numa expressão completamente parentetizada não pode haver parêntesis a mais. Por exemplo, <code>(((1+2))*3)</code> não é uma expressão válida (enquanto expressão completamente parentetizada), apesar de nós a entendermos perfeitamente: o próprio algoritmo da tarefa C não funciona com esta expressão.</p>
+
+<p>A nossa tarefa agora é programar o algoritmo para converter uma expressão aritmética qualquer para a equivalente expressão RPN. Note, mesmo assim, que só estamos interessados em expressões válidas, com operadores reconhecidos e parêntesis bem utilizados (ainda que redundantes).</p>
+
+<p>Depois da prática com as tarefas anteriores, talvez não seja muito difícil compreender a seguinte explicação do algoritmo de conversão de notação infixa para RPN, no caso geral:</p>
+
+<p>Percorre-se a expressão da esquerda para a direita e por cada tóquene (que pode ser um número, um operador, um parêntesis a abrir ou um parêntesis a fechar) faz-se o seguinte:</p>
+
+<ol>
+	<li>Se for um número, ensaca-se.</li>
+	<li>Se for um parêntesis a abrir, empilha-se.</li>
+	<li>Se for um parêntesis a fechar, desempilha-se e vai-se ensacando até aparecer um parêntesis a abrir (o qual não é ensacado, claro).</li>
+	<li>Se for um operador, desempilha-se e vai-se ensacando enquanto a precedência do operador no topo de pilha for maior ou igual à precedência do operador corrente. Mas ATENÇÃO: o ciclo também pára se a pilha esvaziar (claro!) ou se surgir no topo da pilha um parêntesis a abrir (o qual não deve ser desempilhado, claro). Terminado o ciclo, empilha-se o operador corrente.</li>
+</ol>
+
+<p>No final, desempilham-se e ensacam-se os operadores que ainda estiverem na pilha.</p>
+
+<p>Repare que este algoritmo necessita de um ingrediente suplementar em relação aos das tarefas anteriores: uma função para quantificar a precedência de cada operador, já que temos de comparar as precedências dos operadores. Note que os operadores unários têm precedência sobre os operadores binários. </p>
+
+<p>O funcionamento do programa é análogo ao da tarefa anterior. Eis um exemplo de utilização:</p>
+
+<pre><code>3+5*2
+3 5 2 * +
+(3+5)*2
+3 5 + 2 *
+1+sqrt(3*27)
+1 3 27 * sqrt +
+1+sqrt 3*27
+1 3 sqrt 27 * +
+sqrt 4 + 1
+4 sqrt 1 +
+2*sqrt(3.0*3.0+4.0*4.0)
+2 3.0 3.0 * 4.0 4.0 * + sqrt *
+</code></pre>
+
+<p>No seu programa, a função que faz os cálculos terá o seguinte cabeçalho:</p>
+
+<pre><code>public static ArrayBag&lt;String&gt; infixToRPN(String[] ss)
+</code></pre>
+
+<p>Submeta no problema D.</p>
+
+<h2>Avaliação de expressões aritméticas</h2>
+
+<p>Juntando as funções <code>infixToRPN</code> e <code>evaluationRPN</code> temos um método para avaliar expressões aritméticas arbitrárias, nas calmas. O único transtorno é que o ambos os métodos esperam arrays de <code>String</code> como argumentos e <code>infixToRPN</code> devolve um saco. Portanto, devemos recorrer à função que transforma um saco num array, estudada na aula. </p>
+
+<h2>Parentetização</h2>
+
+<p>Vimos na tarefa C como transformar uma expressão completamente parentetizada na correspondente expressão RPN. Um exercício interessante, que constitui a nossa próxima tarefa, é programar a transformação inversa: passar de uma expressão RPN para expressão aritmética completamente parentetizada.</p>
+
+<p>O algoritmo é uma adaptação engenhosa do algoritmo de avaliação, realizado na tarefa B. Antes, o resultado de cada avaliação intermédia, que era um número, ia para a pilha. Agora, o resultado de cada avaliação é, por assim dizer, a expressão correspondente colocada entre parêntesis, a qual deverá ir para a pilha. Portanto, onde antes tínhamos uma pilha de números, agora teremos uma pilha de cadeias de caracteres.</p>
+
+<p>Escreva então um programa que ciclicamente leia uma linha contendo uma expressão RPN e escreva a correspondente expressão infixa completamente parentetizada. Eis um exemplo de utilização:</p>
+
+<pre><code>4 6 + 9 *
+((4+6)*9)
+3 4 5 * +
+(3+(4*5))
+1 2 3 4 5 * * * *
+(1*(2*(3*(4*5))))
+5 3 + sqrt
+(sqrt(5+3))
+5 4 sqrt *
+(5*(sqrt 4))
+</code></pre>
+
+<p>Estes dois últimos exemplos ilustram uma particularidade em relação ao tratamento da <code>sqrt</code> (e de outros operadores unários representados por identificadores, se houvesse): se o operando já é uma expressão parentetizada, justapõe-se ao operador; se não, insere-se um espaço entre o operador e o operando.</p>
+
+<p>No seu programa, a função que faz os cálculos terá o seguinte cabeçalho:</p>
+
+<pre><code>public static String parenthesize(String[] ss)
+</code></pre>
+
+<p>Submeta no problema E.</p>
+
+<h2>Parentetização mínima</h2>
+
+<p>Fazer a parentetização completa é interessante, mas mais interessante seria usar apenas os parêntesis estritamente necessários, tirando partido das regras de precedência e das regras de associatividade dos operadores. Por exemplo, a expressão <code>3 4 5 * +</code> dará <code>3+4*5</code>, simplesmente, e não <code>(3+(4*5))</code>, como no exemplo acima. A expressão <code>6 7 8 + +</code> dá <code>6+7+8</code>, tal como a expressão <code>6 7 + 8 +</code>. Já <code>5 4 3 - -</code> dá <code>5-(4-3)</code> enquanto <code>5 4 - 3 -</code> dá <code>5-4-3</code>.</p>
+
+<p>Esta é última tarefa de hoje: escrever um programa que análogo ao anterior, mas produzindo a expressão infixa minimamente parentetizada. Eis mais alguns exemplos:</p>
+
+<pre><code>4 6 + 9 *
+(4+6)*9
+2 3 * 4 5 * +
+2*3+4*5
+2 3 + 4 5 + *
+(2+3)*(4+5)
+1 2 3 4 5 * * * *
+1*2*3*4*5
+5 3 + sqrt
+sqrt(5+3)
+2 5 4 sqrt * +
+2+5*sqrt 4
+</code></pre>
+
+<p>No seu programa, a função que faz os cálculos terá o seguinte cabeçalho:</p>
+
+<pre><code>public static String parenthesizeMinimally(String[] ss)
+</code></pre>
+
+<p>Submeta no problema F.</p>
+
+<h2>Simplificação de parêntesis</h2>
+
+<p>Com a artilharia que construímos, simplificar uma expressão infixa, removendo os parêntesis redundantes é trivial, não é?</p>
+
+<h2>Indicações técnicas</h2>
+
+<p>As classes <a href="http://w3.ualg.pt/~pjguerreiro/sites/26_aed_1516/progs/Bag.java.txt"><code>Bag</code></a>, <a href="http://w3.ualg.pt/~pjguerreiro/sites/26_aed_1516/progs/ArrayBag.java.txt"><code>ArrayBag</code></a>, <a href="http://w3.ualg.pt/~pjguerreiro/sites/26_aed_1516/progs/Stack.java.txt"><code>Stack</code></a>, <a href="http://w3.ualg.pt/~pjguerreiro/sites/26_aed_1516/progs/RegularExpressions.java.txt"><code>RegularExpressions</code></a>, <a href="http://w3.ualg.pt/~pjguerreiro/sites/26_aed_1516/progs/Table.java.txt"><code>Table</code></a> e <a href="http://w3.ualg.pt/~pjguerreiro/sites/26_aed_1516/progs/HashTable.java.txt"><code>HashTable</code></a>, estudadas nas aulas, estão instaladas no Mooshak. Pode usá-las livremente no seu programa.</p>
+
+<p>Use um único programa para todas as submissões, recorrendo à técnica da opção na linha de comando, como habitualmente. Por outras palavras, selecione a função de teste na função <code>main</code> usando como argumento na linha de comando a letra de cada problema.</p>
+
+
+
+
+</body></html>
