@@ -1,8 +1,4 @@
----
-layout: page
-title: AED
-subtitle: Algorithms and Data Structures
----
+# AED
 
 AED - Algoritmos e Estruturas de Dados (Portuguese)
 
