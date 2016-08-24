@@ -46,7 +46,6 @@ List of all the problems that me and my colleges had to solve in the class (the 
    [Solution](https://github.com/CyrillBrito/AED/tree/master/Mergesort%20natural/src).
 
 * Concordância - Hash tables and text searches.
-
    [Problem](http://htmlpreview.github.io/?https://github.com/CyrillBrito/AED/blob/master/Concordância/doc/Concordância.html).
    [Solution](https://github.com/CyrillBrito/AED/tree/master/Concordância/src).
 
