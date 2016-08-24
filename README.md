@@ -42,7 +42,7 @@ List of all the problems that me and my colleges had to solve in the class (the 
    [Solution](https://github.com/CyrillBrito/AED/tree/master/Pinhal%20do%20Ludo/src).
 
 * Mergesort natural - The title says it all.
-   [Problem](http://htmlpreview.github.io/?https://github.com/CyrillBrito/AED/blob/master/Mergesort%20natural/doc/Mergesot%20natural.html).
+   [Problem](http://htmlpreview.github.io/?https://github.com/CyrillBrito/AED/blob/master/Mergesort%20natural/doc/Mergesort%20natural.html).
    [Solution](https://github.com/CyrillBrito/AED/tree/master/Mergesort%20natural/src).
 
 * Concordância - TODO
