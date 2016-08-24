@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<!-- saved from url=(0076)http://w3.ualg.pt/~pjguerreiro/sites/26_aed_1516/problems/mergesort_natural/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<link rel="stylesheet" type="text/css" href="./Mergesort natural_files/style.css">
+		<title>Mergesort natural</title>
+	</head>
+<body>
+<h1>Mergesort natural</h1>
+
+<figure><img src="./Mergesort natural_files/UnivacA.jpg"></figure>
+
+<p>Na pré-história, quando os discos tinham capacidades irrisórias e a memória central era minúscula, os ficheiros grande residiam em bandas magnéticas, carinhosamente chamadas de <em>tapes</em> (pronunciar “teipes”). Certamente você já viu a cena em filmes dos anos sessenta.</p>
+
+<p>Para ordenar os ficheiros que residiam nas <em>tapes</em>, usava-se essencialmente variantes do mergesort bottom-up. Uma dessas variantes é o <em>mergesort natural</em>, que vamos programar hoje.</p>
+
+<p>Recorde que no mergesort bottom-up, na primeira passagem fundem-se dois a dois os subarrays de comprimento 1; depois, na segunda passagem fundem-se dois a dois os subarrays de comprimento 2 que tinham ficado ordenados na primeira passagem; depois na terceira passagem, fundem-se dois a dois os subarrays de comprimento 4 que tinham ficado ordenados na segunda passagem e assim por diante.</p>
+
+<p>O mergesort natural é parecido, mas em vez de fundir subarrays de comprimentos pré-determinados (1, 2, 4, 8, etc.), funde subarrays que já estejam ordenados, tão compridos quanto possível. </p>
+
+<p>Vejamos um exemplo, com um array de 8 números:</p>
+
+<pre><code>32 12 56 70 20 25 30 14
+</code></pre>
+
+<p>No mergesort bottom-up após a primeira passagem temos:</p>
+
+<pre><code>12 32 56 70 20 25 14 30
+</code></pre>
+
+<p>Após a segunda:</p>
+
+<pre><code>12 32 56 70 14 20 25 30
+</code></pre>
+
+<p>E após a terceira:</p>
+
+<pre><code>12 14 20 25 39 32 56 70
+</code></pre>
+
+<p>De facto, no array original há quatro troços ordenados</p>
+
+<pre><code>32
+12 56 70
+20 25 30
+14
+</code></pre>
+
+<p>Se os fundirmos dois a dois obtemos, na primeira passagem </p>
+
+<pre><code>12 32 56 70 14 20 25 30
+</code></pre>
+
+<p>Agora temos dois troços ordenados:</p>
+
+<pre><code>12 32 56 70
+14 20 25 30
+</code></pre>
+
+<p>Podemos fundi-los:</p>
+
+<pre><code>12 14 20 25 30 32 66 70
+</code></pre>
+
+<p>Quer dizer, tirando partido dos troços já ordenados existente no array, conseguimos diminuir o número de passagens (e, portanto, o esforço computacional e o desgaste das <em>tapes</em>...)</p>
+
+<p>No mergesort bottom-up, para fazer a fusão troço a troço, usava-se um array auxiliar. Durante a fusão esse array auxiliar era percorrido por dois índices, um para cada troço que entrava na fusão.</p>
+
+<p>Em termos de <em>tapes</em>, isso é batota, porque os leitores de banda (os <em>tape drives</em>) só tinham uma cabeça de leitura e portanto não podiam estar a ler em dois locais, simultaneamente, como acontece quando usamos dois índices num array. A solução era usar, não uma <em>tape</em> auxiliar, mas sim duas, copiando para elas alternadamente os troços ordenados provenientes da <em>tape</em> principal.</p>
+
+<h2>Função splitRuns</h2>
+
+<p>A primeira tarefa de hoje é programar uma função <code>splitRuns</code> que copia alternadamente os troços ordenados existentes num array para dois outros arrays.</p>
+
+<p>Programe esta função numa nova classe <code>MergesortNatural&lt;T&gt;</code>, que deriva da classe abstrata <code>Sort&lt;T&gt;</code>, fornecida. Deixe a função <code>sort</code> vazia, por enquanto.</p>
+
+<p>O cabeçalho da função <code>splitRuns</code> deve ser o seguinte:</p>
+
+<pre><code>public int splitRuns(T[] a, T[] b, T[] c)
+</code></pre>
+
+<p>O array <code>a</code> é o array de entrada (o que estará em curso de ordenação, quando esta função for usada na função <code>sort</code>) e os arrays <code>b</code> e <code>c</code> são os arrays de saída, os quais vão receber os troços ordenados, alternadamente. Quando a função for chamada, os arrays <code>b</code> e <code>c</code> já terão sido criados, com comprimento por excesso, igual ao comprimento do array <code>a</code>. A função devolve o número de elementos transferidos para o array <code>b</code>. (Note que se houver <strong>n</strong> elementos no array <code>b</code>, haverá necessariamente <strong>a.length - n</strong> elementos no array <code>c</code>).</p>
+
+<p>Programe também funções de teste para arrays de inteiros (<code>Integer</code>) e para arrays de <code>String</code>. </p>
+
+<p>No caso da função de teste para inteiros, ela deve ler para um array todos os números do input (com <code>StdIn.realAllInts()</code>), invocar a função <code>splitRuns</code> e escrever cada um dos arrays numa linha, com os valores separados por um espaço.</p>
+
+<p>Como exemplo, considere um ficheiro de input com o seguinte conteúdo:</p>
+
+<pre><code>34 68 12 45 89 4 3 78 34 
+12 67 45
+37 33 45 45 89
+</code></pre>
+
+<p>Neste caso, a função de teste para inteiros produzirá as seguintes duas linhas:</p>
+
+<pre><code>34 68 4 34 45 33 45 45 89
+12 45 89 3 78 12 67 37
+</code></pre>
+
+<p>Analogamente, agora com cadeias de caracteres (aqui lê-se com <code>StdIn.readAllStrings()</code>), considere o seguinte ficheiro:</p>
+
+<pre><code>faro coimbra porto viseu aveiro
+lisboa tavira lagos albufeira barreiro almada
+cascais braga guarda portalegre sesimbra
+</code></pre>
+
+<p>Neste caso, a função de teste produzirá as seguintes duas linhas:</p>
+
+<pre><code>faro aveiro lisboa tavira albufeira barreiro braga guarda portalegre sesimbra
+coimbra porto viseu lagos almada cascais
+</code></pre>
+
+<p>Prepare a sua função <code>main</code> de maneira a invocar a função de teste para <code>Integer</code> quando o argumento na linha de comando for 4 e a invocar a função de teste para <code>String</code> quando for 5.</p>
+
+<p>Nota: para manter a correspondência com os exemplos que estudámos na aulas, o argumento 1 fica reservado para testar mais adiante a ordenação para inteiros, o argumento 2 para testar a ordenação de cadeias de caracteres e o argumento 3 para o ensaio de razão dobrada. Estes testes já estão disponíveis na classe <code>Sort&lt;T&gt;</code>, pelo que será preciso apenas ajustar a função <code>main</code>, de maneira a invocar a função <code>sort</code> agora da classe <code>MergesortNatural&lt;T&gt;</code>.</p>
+
+<p>Submeta no problema A.</p>
+
+<h2>Função mergeNatural</h2>
+
+<p>A função <code>mergeNatural</code> é a recíproca da função <code>splitRuns</code>. Neste caso há dois arrays de entrada e um de saída. O cabeçalho é o seguinte:</p>
+
+<pre><code>public void mergeNatural(int nb, T[] b, T[] c, T[] a)
+</code></pre>
+
+<p>O argumento <code>nb</code> representa o número de elementos presentes no array <code>b</code>. Note que em geral o array <code>b</code> não estará cheio e o array <code>c</code> também não. O array <code>a</code> é o array de saída, que reunirá os elementos copiados dos arrays <code>b</code> e <code>c</code>, e o seu comprimento terá sido fixado anteriormente, ajustado aos dados lidos. Por conseguinte, o número de elementos presentes no array <code>c</code> fica implícito: <strong>a.length - nb</strong>.</p>
+
+<p>Programe a função <code>mergeNatural</code> e também funções de teste para arrays de inteiros (<code>Integer</code>) e para arrays de <code>Strings</code>. </p>
+
+<p>Em ambos os casos, as ficheiros de teste terão apenas duas linhas. Na primeira vêm os valores para o primeiro array e na segunda os valores para o segundo, sempre separados cada um do seguinte por um único espaço. O ficheiro de saída terá uma única linha, listando os elementos do array fundido, separados cada um do seguinte por um único espaço também.</p>
+
+<p>Eis um exemplo de ficheiro de entrada, para <code>Integer</code>:</p>
+
+<pre><code>41 63 80 12 40 30 19 11 17 30
+50 55 70 90 91 41 41 41 56 18 30
+</code></pre>
+
+<p>Neste caso, o ficheiro de saída será o seguinte:</p>
+
+<pre><code>41 50 55 63 70 80 90 91 12 40 41 41 41 56 18 30 30 19 11 17 30
+</code></pre>
+
+<p>Prepare a sua função <code>main</code> de maneira a invocar a função de teste para <code>Integer</code> quando o argumento na linha de comando for 6 e a invocar a função de teste para <code>String</code> quando for 7.</p>
+
+<p>Submeta no problema B.</p>
+
+<h2>Função sort</h2>
+
+<p>A função <code>sort</code> chama alternadamente <code>splitRuns</code> e <code>mergeNatural</code> até que em resultado do <code>splitRuns</code> o segundo array de saída fica vazio. Nessa altura, o array principal terá só um troço ascendente, o que quer dizer que está ordenado.</p>
+
+<p>Programe agora a função <code>sort</code> e prepare a sua função <code>main</code> de maneira a invocar a função de teste para <code>Integer</code> quando o argumento na linha de comando for 1 e a invocar a função de teste para <code>String</code> quando for 2. Note que neste caso não deve programar as funções de teste, mas sim usar as funções de teste já prontas na classe abstrata.</p>
+
+<p>Submeta no problema C.</p>
+
+<p>Não faz parte do trabalho a submeter, mas aproveite para realizar o ensaio de razão dupla, que já está preparado na classe <code>Sort&lt;T&gt;</code>, e assim confirmar experimentalmente o comportamento linearítmico da sua ordenação. Use o argumento 3 na linha de comando para selecionar o ensaio.</p>
+
+<h2>Função sortCounting</h2>
+
+<p>Instrumente a sua função <code>sort</code>, por meio de uma nova função <code>sortCounting</code>, que ordena tal como a outra, mas que devolve um array de inteiros contendo número de troços ordenados existentes no array no início de cada passagem. O cabeçalho será:</p>
+
+<pre><code>public int[] sortCounting(T[] a)
+</code></pre>
+
+<p>Escreva também funções de teste para <code>Integer</code> e para <code>String</code>. Em ambos os casos, as funções despejam o array resultante para uma linha, com um espaço entre cada dois números escritos.</p>
+
+<p>Como exemplo, na função de teste para inteiros, considere o seguinte ficheiro de entrada:</p>
+
+<pre><code>41 63 80 12 40 30 19 11 17 30
+50 55 70 90 91 41 41 41 56 18 30
+</code></pre>
+
+<p>Neste caso, o ficheiro de saída deve ser o seguinte:</p>
+
+<pre><code>7 4 2 1
+</code></pre>
+
+<p>Prepare a sua função <code>main</code> de maneira a invocar a função de teste para <code>Integer</code> quando o argumento na linha de comando for 8 e a invocar a função de teste para <code>String</code> quando for 9. </p>
+
+<p>Submeta no problema D.</p>
+
+
+
+
+</body></html>
