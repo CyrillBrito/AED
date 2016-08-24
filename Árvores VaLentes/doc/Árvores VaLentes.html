@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!-- saved from url=(0074)http://w3.ualg.pt/~pjguerreiro/sites/26_aed_1516/problems/arvoresvalentes/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<link rel="stylesheet" type="text/css" href="./Árvores VaLentes_files/style.css">
+		<title>Árvores VaLentes</title>
+	</head>
+<body>
+<h2>Árvores VaLentes</h2>
+
+<figure><img src="./Árvores VaLentes_files/sobreiro_estreito.jpg"></figure>
+
+<p>Este guião é sobre árvores AVL.</p>
+
+<p>Já sabemos as árvores AVL são árvores binárias de busca, equilibradas, auto-ajustáveis. Isto é, temos uma árvore AVL, toda bonitinha, equilibrada. Agora inserimos um novo elemento, usando o algoritmo de inserção em árvores de busca. Sabemos fazer isso, mas também sabemos que ao inserir pode ser que a árvore fique desequilibrada. Pois bem, a árvore AVL é esperta, apercebe-se de que ficou desequilibrada e reequilibra-se sozinha.</p>
+
+<p>Analogamente, se eliminarmos um elemento de uma árvore AVL ela poderia ficar desequilibrada. Mas não fica, porque se isso acontecer, ela reequilibra-se logo, automaticamente.</p>
+
+<p>O objectivo deste guião é programar duas função só: inserção e eliminação em árvores AVL. Você encontrará na Internet isso já feito, mas provavelmente não para as “nossas” árvores imutáveis, ou talvez sim. Seja como for, atenção: ir buscar código à Internet é como ir buscar músicas ou filmes: se o site não é de confiança, trazemos é lixo.</p>
+
+<p>Antes, para aquecer, vamos experimentar as árvores de busca simples, que estudámos nas aulas teóricas, programando algumas funções “de exercício”. Você receberá a classe abstrata <code>Tree&lt;T&gt;</code>, e as classes <code>Empty&lt;T&gt;</code> e <code>Cons&lt;T&gt;</code>, e completará as funções que estão em branco.</p>
+
+<h2>Isomorfismo</h2>
+
+<p>Dizemos que duas árvores são <em>isomorfas</em> se têm a mesma forma, independentemente dos valores. Por exemplo, as duas árvores da figura seguinte são isomorfas:</p>
+
+<figure><img src="./Árvores VaLentes_files/isomorphs.png"></figure>
+
+<p>Programe a função <code>isomorphs</code> tal que <code>t.isomorphs(u)</code> dá <code>true</code> se e só se <code>t</code> e <code>u</code> são duas árvores isomorfas. Submeta no problema A. Repare que a função de teste já está programada. Não a modifique.</p>
+
+<h2>Altura</h2>
+
+<p>A altura de uma árvore é o número de níveis da árvores. Portanto, a altura de uma árvore vazia é 0. Numa árvore não vazia, a altura é o comprimento do maior caminho, por assim, dizer, de um nó qualquer da árvore até à raiz. Por exemplo, a altura da seguinte árvore é 7:</p>
+
+<figure><img src="./Árvores VaLentes_files/tree_height.png"></figure>
+
+<p>Programe a função <code>height</code>, tal que <code>t.height()</code> é o valor da altura da árvore <code>t</code></p>
+
+<p>Submeta no problema B (sem mexer na função de teste ou na função <code>main</code>).</p>
+
+<h2>Grau de desequilíbrio</h2>
+
+<p>O grau de desequilíbrio de uma árvore é a maior diferença entre as alturas das duas subárvores da árvore dada de alguma subárvore presente na árvore dada. O grau de desequilíbrio de uma árvore vazia é 0.</p>
+
+<p>Por exemplo, o grau de desequilíbrio da árvore anterior é 4.</p>
+
+<p>Programe a função <code>unbalance</code>, tal que <code>t.unbalance()</code> é o valor do grau de desequilíbrio da árvore <code>t</code>.</p>
+
+<p>Submeta no problema C.</p>
+
+<h2>Árvores AVL</h2>
+
+<p>Pois é, as árvores AVL são árvores de busca em que grau de desequilíbrio é 0 ou 1.</p>
+
+<p>De início, as árvores AVL são vazias e, portanto, o grau de desequilíbrio é 0. Depois, de cada vez que se acrescenta um valor a uma árvore AVL que faça o grau de desequilíbrio subir para 2, a árvore reorganiza-se de maneira a que o fator de desequilíbrio baixe.</p>
+
+<p>Repare que dizer “a árvore reorganiza-se” é só uma maneira de falar. As nossas árvores são imutáveis: logo, não se reorganizam! Têm é de ser criadas já reorganizadas.</p>
+
+<p>Ora, a função que cria árvores é o construtor da classe. Portanto é nessa que temos de nos concentrar. Sendo as árvores AVL árvores de busca, as funções <code>put</code>e <code>delete</code>são análogas às das árvores de busca simples. A diferença reside apenas no construtor.</p>
+
+<p>Estude a classe abstrata <code>AVLTree&lt;T&gt;</code>fornecida e as respetivas classes <code>AVLEmpty&lt;T&gt;</code> e <code>AVLCons&lt;T&gt;</code>. Repare que a classe <code>AVLCons&lt;T&gt;</code> tem um membro de dados suplementar onde fica registada a altura da árvore. Este campo é essencial para </p>
+
+<p>determinar eficientemente que tipo de reequilíbrio realizar, no construtor.</p>
+
+<p>Programe então os construtores e as funções <code>put</code> e <code>delete</code>, nas classes <code>AVLEmpty&lt;T&gt;</code> e <code>AVLCons&lt;T&gt;</code>.</p>
+
+<p>O construtor deve implementar as <em>rotações</em> tal como explicado na página da Wikipédia, <a href="https://en.wikipedia.org/wiki/AVL_tree">https://en.wikipedia.org/wiki/AVL_tree</a>. Mas note que aquele pedaço de código publicado na Wikipédia diz respeito a outra implementação de árvores AVL, pelo que não pode ser usado diretamente.</p>
+
+<p>Teste usando os esquetes fornecidos.</p>
+
+<p>Submeta no problema D.</p>
+
+
+
+
+</body></html>
