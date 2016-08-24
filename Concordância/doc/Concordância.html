@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<!-- saved from url=(0071)http://w3.ualg.pt/~pjguerreiro/sites/26_aed_1516/problems/concordancia/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<link rel="stylesheet" type="text/css" href="./Concordância_files/style.css">
+		<title>Concordância</title>
+	</head>
+<body>
+<h1>Concordância</h1>
+
+<figure><img src="./Concordância_files/concorde.jpg"></figure>
+
+<p>A concordância é uma coisa muito bonita: os filhos devem concordar com os pais, os empregados devem concordar com os patrões, o prego deve concordar com o martelo, os dois membros de um casal devem concordar um com o outro e o verbo deve concordar com o sujeito.</p>
+
+<p>Em programação também concordamos, mas noutro sentido.</p>
+
+<p>Com efeito, dada a influência do inglês, usamos o termo “concordância” na acepção de, como diz o meu dicionário, <em>“an index of all main words in a book along with their immediate contexts”</em>.</p>
+
+<p>Tomemos, por exemplo, o poema de Fernando Pessoa, “O rio da minha aldeia”:</p>
+
+<blockquote>
+<p>O Tejo é mais belo que o rio que corre pela minha aldeia, </p>
+
+<p>Mas o Tejo não é mais belo que o rio que corre pela minha aldeia </p>
+
+<p>Porque o Tejo não é o rio que corre pela minha aldeia. </p>
+
+<p>O Tejo tem grandes navios </p>
+
+<p>E navega nele ainda, </p>
+
+<p>Para aqueles que vêem em tudo o que lá não está, </p>
+
+<p>A memória das naus. </p>
+
+<p>O Tejo desce de Espanha </p>
+
+<p>E o Tejo entra no mar em Portugal. </p>
+
+<p>Toda a gente sabe isso. </p>
+
+<p>Mas poucos sabem qual é o rio da minha aldeia </p>
+
+<p>E para onde ele vai </p>
+
+<p>E donde ele vem. </p>
+
+<p>E por isso porque pertence a menos gente, </p>
+
+<p>É mais livre e maior o rio da minha aldeia. </p>
+
+<p>Pelo Tejo vai-se para o Mundo. </p>
+
+<p>Para além do Tejo há a América </p>
+
+<p>E a fortuna daqueles que a encontram. </p>
+
+<p>Ninguém nunca pensou no que há para além </p>
+
+<p>Do rio da minha aldeia. </p>
+
+<p>O rio da minha aldeia não faz pensar em nada. </p>
+
+<p>Quem está ao pé dele está só ao pé dele. </p>
+</blockquote>
+
+<p>Admitindo que o contexto de cada palavra é o verso em que a palavra ocorre, a <em>concordância</em> será uma tabela que a cada palavra associa o conjunto dos versos que contêm essa palavra. Assim, a concordância do poema dir-nos-ia automaticamente que os versos onde aparece a palavra “aldeia” são os seguintes:</p>
+
+<ul>
+	<li>O rio da minha aldeia não faz pensar em nada. </li>
+	<li>Do rio da minha aldeia. </li>
+	<li>É mais livre e maior o rio da minha aldeia. </li>
+	<li>Mas poucos sabem qual é o rio da minha aldeia </li>
+	<li>Porque o Tejo não é o rio que corre pela minha aldeia. </li>
+	<li>Mas o Tejo não é mais belo que o rio que corre pela minha aldeia </li>
+	<li>O Tejo é mais belo que o rio que corre pela minha aldeia, </li>
+</ul>
+
+<p>Veja também este site, <a href="http://www.thekingsbible.com/BibleConcordance.aspx">http://www.thekingsbible.com/BibleConcordance.aspx</a>, que tem uma concordância da Bíblia, em inglês.</p>
+
+<p>O nosso objetivo hoje é construir a concordância de “Os Lusíadas”. O programa lerá o texto completo do livro, produzindo a concordância. A seguir entra em modo interativo (como no <em>site</em> da Bíblia, por assim dizer): em cada passo, aceita uma palavra da consola e depois escreve na consola todas os versos em que essa palavra ocorre. </p>
+
+<h1>Primeira tarefa: classe Concordance</h1>
+
+<p>Implementaremos a concordância por meio de uma tabela de dispersão em que as chaves são as palavras e os valores são as listas de versos em que ocorre a chave. </p>
+
+<p>A sua tarefa consiste em programar os métodos <code>put</code>, <code>putLine</code>, <code>get</code> e <code>showSorted</code> na classe fornecida:</p>
+
+<pre><code>import edu.princeton.cs.algs4.StdIn;
+import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.In;
+
+import java.util.Arrays;
+import java.util.Iterator;
+
+/**
+ * Class Concordance represents objects that implement concordances. A
+ * concordance is a table that associates a word to all small pieces of text
+ * where that word has been identified.
+ */
+public class Concordance implements Iterable&lt;String&gt;
+{
+  private HashTable&lt;String, List&lt;String&gt;&gt; ht;
+
+  /**
+   * Initializes a concordance object.
+   */
+  public Concordance()
+  {
+    ht = new HashTable&lt;&gt;();
+  }
+
+  public Iterator&lt;String&gt; iterator()
+  {
+    return ht.iterator();
+  }
+
+  public boolean has(String key)
+  {
+    return ht.has(key);
+  }
+
+  public boolean isEmpty()
+  {
+    return ht.isEmpty();
+  }
+
+  public int size()
+  {
+    return ht.size();
+  }
+
+  /**
+   * Adds a word and the corresponding text where the word has been identified.
+   * 
+   * @param key the word.
+   * @param line the text where the word has been identified.
+   */
+  public void put(String key, String line)
+  {
+    // TODO Auto-generated method stub
+
+  }
+
+  /**
+   * Adds each word in the given string together with the given string. Words
+   * are substrings of the given string delimited by spaces.
+   * 
+   * @param line the given string, which contains several words.
+   */
+  public void putLine(String line)
+  {
+    // TODO Auto-generated method stub
+
+  }
+
+  /**
+   * Returns the list of strings associated with the given string, representing
+   * all texts where the given string has been identified. Words are delimited
+   * in each line be spaces.
+   * 
+   * @param key the given string.
+   * @returns the list of strings associated with the given string, as
+   *          explained.
+   */
+  public List&lt;String&gt; get(String key)
+  {
+    // TODO Auto-generated method stub
+    return null;
+
+  }
+
+  /**
+   * Display the table on the console, using a simple format
+   */
+  public void show()
+  {
+    for (String s : ht)
+    {
+      StdOut.println(s);
+      for (String t : get(s))
+        StdOut.println("...." + t);
+    }
+  }
+
+  /**
+   * Display the table in the same format as function show but with the keys
+   * sorted and the lines for each key also sorted. Note: use Arrays.sort().
+   */
+  public void showSorted()
+  {
+    // TODO Auto-generated method stub
+
+  }
+
+  public static void taskA()
+  {
+    Concordance c = new Concordance();
+    while (StdIn.hasNextLine())
+    {
+      String line = StdIn.readLine();
+      c.putLine(line);
+    }
+    c.showSorted();
+  }
+
+  public static void taskB(String filename)
+  {
+    // TODO Auto-generated method stub
+
+  }
+
+  // First impressions...
+  public static void testA()
+  {
+    Concordance c = new Concordance();
+    while (StdIn.hasNextLine())
+    {
+      String line = StdIn.readLine();
+      c.putLine(line);
+    }
+    c.show();
+  }
+
+  public static void main(String[] args)
+  {
+    char choice = 'A';
+    if (args.length &gt; 0)
+      choice = args[0].charAt(0);
+    if (choice == 'A')
+      // Run from console, at directory work, with:
+      // java -ea -cp ../../*:../bin:. Concordance A
+      taskA();
+    else if (choice == 'B')
+    {
+      // Run from console, at directory work, with:
+      // java -ea -cp ../../*:../bin:. Concordance B estrofe_1_1.txt
+      // java -ea -cp ../../*:../bin:. Concordance B lusiadas_canto_1.txt
+      // java -ea -cp ../../*:../bin:. Concordance B lusiadas_tudo.txt
+      assert args.length &gt; 1;
+      taskB(args[1]);
+    }
+    if (choice == 'C')
+      // Run from console, at directory work, with:
+      // java -ea -cp ../../*:../bin:. Concordance C
+      testA();
+    else
+      StdOut.println("Illegal option: " + choice);
+  }
+
+}
+
+</code></pre>
+
+<p>A função <code>showSorted</code> é necessária apenas para normalizar os resultados, uma vez que a ordem das chaves e das linhas para cada chave depende de pormenores da implementação. Com efeito, usando a função <code>show</code> com o seguinte ficheiro de teste:</p>
+
+<pre><code>aaa nnn mmm
+jjj aaa nnn
+ccc hhh aaa ooo ccc 
+ooo ccc ccc ccc ooo
+</code></pre>
+
+<p>a função <code>testA</code> do meu programa despejou o seguinte na consola:</p>
+
+<pre><code>nnn
+....jjj aaa nnn
+....aaa nnn mmm
+jjj
+....jjj aaa nnn
+ooo
+....ooo ccc ccc ccc ooo
+....ccc hhh aaa ooo ccc 
+ccc
+....ooo ccc ccc ccc ooo
+....ccc hhh aaa ooo ccc 
+hhh
+....ccc hhh aaa ooo ccc 
+mmm
+....aaa nnn mmm
+aaa
+....ccc hhh aaa ooo ccc 
+....jjj aaa nnn
+....aaa nnn mmm
+</code></pre>
+
+<p>A versão final do seu programa deve usar a função <code>showSorted</code>, em vez da função <code>show</code>.</p>
+
+<p>Todos os testes deste problema usam linhas com palavras sem sinais diacríticos, cada palavra separada da seguinte por um só espaço, sem sinais de pontuação. A concordância não deve distinguir minúsculas e maiúsculas para as chaves. Por exemplo, usando a função <code>show</code>, com o seguinte ficheiro de teste:</p>
+
+<pre><code>Uuuu AAA ggg
+GGG aaa xxX
+xxx
+</code></pre>
+
+<p>o programa deve dar o seguinte output:</p>
+
+<pre><code>uuuu
+....Uuuu AAA ggg
+ggg
+....GGG aaa xxX
+....Uuuu AAA ggg
+xxx
+....xxx
+....GGG aaa xxX
+aaa
+....GGG aaa xxX
+....Uuuu AAA ggg
+</code></pre>
+
+<h1>Segunda tarefa: concordância a sério</h1>
+
+<p>O problema da concordância é interessante, mas para ser útil tem de ser capaz de processar devidamente texto em português, com acentos, cedilhas e pontuação.</p>
+
+<p>Do ponto de vista da programação, há duas questões a considerar: </p>
+
+<ol>
+	<li>como usar a função <code>split</code> de maneira a obter as palavras, desprezando os sinais de pontuação?</li>
+	<li>como ordenar cadeias de caracteres na presença de sinais diacríticos?</li>
+</ol>
+
+<p>Relativamente à função <code>split</code> recordemos que o argumento representa a expressão regular que define o conjunto de cadeias que desejamos usar como separadores de palavras. Quando escrevemos <code>split(" ")</code> estamos a significar que os separadores são as subsequências formadas por um único espaço (ou seja, o conjunto de cadeias só tem um elemento, a cadeira <code>" "</code>) e até nem parece que se o argumento é uma expressão regular. Na verdade, seria melhor escrever <code>split("\\s")</code><sup><a id="ffn1" href="http://w3.ualg.pt/~pjguerreiro/sites/26_aed_1516/problems/concordancia/#fn1" class="footnote">1</a></sup>, pois assim ficava claro que se trata de uma expressão regular e tem a vantagem de também separar por outros caracteres <em>whitespace</em>, para além dos espaços (por exemplo, caracteres <em>tab</em>). </p>
+
+<p>Para separar uma sequência de um ou mais caracteres <em>whitespace</em>, a expressão regular que devemos usar é <code>"\\s+"</code></p>
+
+<p>No entanto, não queremos separar apenas por <em>whitespace</em>. Queremos sim separar por sequências de tudo o que não for uma letra. É simples: usamos a expressão regular <code>"[^a-zA-Z]+"</code>. Infelizmente, isto ainda não serve, pois não inclui as letras com sinais diacríticos, por exemplo ‘á´, ´õ´ ou ´Ç´. Damos um jeito, incluindo todas as letras com diacríticos usadas em português: <code>"[^a-zA-ZáàâãéêíóôõúçÁÀÂÃÉÍÓÔÕÚÇ]+"</code>.</p>
+
+<p>Esta longa expressão <code>"[^a-zA-ZáàâãéêíóôõúçÁÀÂÃÉÍÓÔÕÚÇ]+"</code> permitiria separar as palavras para efeitos do nosso programa. No entanto, se a usássemos em contextos mais gerais, causaria surpresas quando surgisse uma letra com sinais diacríticos das que não são usadas em português, por exemplo, ´é´, ´å´, ´ü´, ´ñ´. O remédio é simples e poderoso: a expressão <code>"\\p{L}"</code> representa todas as letras, de qualquer alfabeto, com ou sem sinais diacríticos. Logo, a expressão que nos convém para o <code>split</code> é <code>"[^\\p{L}]+"</code>. </p>
+
+<p>Só mais um pormenor: por hipótese, não queremos separar palavras compostas, unidas por hífen. Sendo assim, o argumento da função <code>split</code> deve ser <code>"[^\\p{L}\\-]+"</code>.</p>
+
+<p>Vejamos agora a questão da ordenação de cadeias de caracteres com sinais diacríticos. Para começar, considere a seguinte função de teste:</p>
+
+<pre><code>  public static void testSortWithDiacritics()
+  {
+    String[] names = { "orlando", "antónio", "joão", "jorge", "josé", "álvaro", "óscar", "eduardo", "élio" };
+    Arrays.sort(names);
+    StdOut.println(Utils.stringOf(names, " "));
+  }
+</code></pre>
+
+<p>O resultado na consola seria o seguinte:</p>
+
+<pre><code>antónio eduardo jorge josé joão orlando álvaro élio óscar
+</code></pre>
+
+<p>Concluímos que a função de comparação por defeito da classe <code>String</code> não serve para ordenar palavras portuguesas: nitidamente, coloca as letras com acento depois das outras.</p>
+
+<p>Se isto fosse uma cena estilo “as tardes da Júlia”, diríamos que “temos de ensinar o computador a ordenar palavras portuguesas”. Na verdade, o que temos é de parametrizar a função de ordenação com um comparador que observe as regras do português. É simples: primeiro, criamos o <code>Locale</code> para o português europeu:</p>
+
+<pre><code>  public final static Locale myLocale = new Locale("pt", "PT");
+</code></pre>
+
+<p>Depois criamos o comparador, por intermédio de um objeto da classe <code>Collator</code>:</p>
+
+<pre><code>  public final static Collator ptCollator = Collator.getInstance(myLocale);
+</code></pre>
+
+<p>Agora, para ordenar “em português” o array de cadeias <code>names</code>, chama-se assim:</p>
+
+<pre><code>  Arrays.sort(names, ptCollator);
+</code></pre>
+
+<p>Experimente.</p>
+
+<p>Programe agora uma variante da função <code>putLine</code>com um argumento suplementar para representa a expressão regular e depois a função <code>taskB</code>. O argumento desta função é uma cadeia de caracteres com o nome do ficheiro que contém “Os Lusíadas” (ou outro texto que queiramos concordar), que leia esse ficheiro construindo a concordância e que no fim entre num ciclo interativo de consulta: para cada palavra indicada pelo utilizador o programa mostra a lista de versos onde ocorre essa palavra, ordenada alfabeticamente. </p>
+
+<p>O nome do ficheiro deve ser fornecido na linha de comando. </p>
+
+<p>Recorde que para ler um ficheiro sem ser pela consola, deve usar-se um objeto de tipo <code>In</code> inicializado com o nome do ficheiro:</p>
+
+<pre><code>    In f = new In(filename);
+</code></pre>
+
+<p>Aliás, o nome do ficheiro pode ser um URL, o que permite ir ler o ficheiro diretamente da Internet.</p>
+
+<p>Eis um exemplo de interação na consola:</p>
+
+<pre><code>$ java -ea -cp ../../*:../bin Concordance B http://w3.ualg.pt/~pjguerreiro/sites/26_aed_1516/docs/lusiadas_tudo.txt
+gama
+....- "Este é o primeiro Afonso, disse o Gama,
+....Alça-se em pé, com ele o Gama junto, 
+....A nau grande, em que vai Paulo da Gama,
+....As Musas agradeça o nosso Gama
+....Assim o Gentio diz.Responde o Gama:
+....Com desusada festa o nobre Gama. 
+....Com isto o nobre Gama recebia
+....Com que provava o Gama o que dizia; 
+....Do Gama preso, quando lhe lembrara 
+....Do Tejo, pelo mar que o Gama abrira,
+....Dou-vos também aquele ilustre Gama,
+....E como o Gama muito desejasse
+....Enfim ao Gama manda que direito 
+....Está co a bela Deusa o claro Gama.
+....Estava para dar ao Gama aviso, 
+....Fala do Samorim ao Gama 
+....Informa o cauto Gama das armadas 
+....Isto assim dito, o Gama, que já tinha 
+....Mas desta sorte o Gama respondia:
+....Mas o Gama, que não pretende mais, 
+....Não parte o Gama enfim, que lho defende 
+....Nestas palavras o discreto Gama 
+....O caro meu irmão Paulo da Gama.
+....O Gama, que ali mostra a vária tinta, 
+....O Gama, que o danado peito encerra, 
+....O Gama, que o Gentio consentisse 
+....O Gama, que também considerava 
+....O Gama com instância lhe requere 
+....O Gama e o Catual iam falando
+....O Gama e Portugueses no aposento 
+....O que contou ao Rei o ilustre Gama: 
+....O que o sublime Gama contaria, 
+....Os lenhos em que o Gama navegava. 
+....Para o Gama vem com passo brando, 
+....Pelo que vê pergunta; mas o Gama 
+....Pera o felice Gama assi dizia:
+....Pois o Gama soltou pela fazenda. 
+....Por falar de vagar co'o forte Gama,
+....Quando o Gama, colos seus determinava
+....Quando um teu ramo, ó Gama, se exprimenta
+....Sentado o Gama junto ao rico leito, 
+....Sofrer aqui não pode o Gama mais,
+....Também tu, Gama, em pago do desterro
+....Trabalha por mostrar Vasco da Gama
+....Vasco da Gama, o forte capitão, 
+....Vendo o Gama, atentado, a estranheza
+....Vendo o Gama este globo, comovido
+....Vendo Vasco da Gama que tão perto
+....Vestido o Gama vem ao modo Hispano,
+mouro
+...."Desta arte o Mouro atónito e torvado, 
+...."Desta arte o Mouro pérfido despreza
+...."O Rei de Badajoz era alto Mouro, 
+...."Vês? com bélica astúcia ao Mouro ganha
+....Ali vereis o Mouro furioso
+....Ao Mouro ser molesto e avorrecido,
+....Ardis de guerra mil o Mouro iroso; 
+....Assim contava o Mouro; mas vagando 
+....Assim estragado o Mouro, na vingança 
+....Com cujo braço o Mouro inimigo doma,
+....Contra o Mouro que as terras habitava 
+....Da cavalgada ao Mouro já lhe pesa,
+....Das naus o falso Mouro despedido,
+....De ver isto, que o Mouro lhe contava. 
+....Do enganoso ardil, que o Mouro urdia,
+....Do generoso Mouro, que pasmava
+....Do jugo que lhe pôs, o bravo Mouro 
+....Do Mouro ali verão que a voz extrema
+....Dum Mouro, em Moçambique conhecido
+....Em não negar batalha ao bravo Mouro;
+....Em práticas o Mouro diferentes
+....Em vós os olhos tem o Mouro frio,
+....E tu, lavrador Mouro, que te enganas, 
+....Foge o Rei Mouro, e só da vida cura. 
+....Fugindo, a seta o Mouro vai tirando
+....Isto dizendo, acorda o Mouro asinha, 
+....Isto dizendo, o Mouro se tornou 
+....Levando o Idololatra, e o Mouro preso,
+....Mas o malvado Mouro, não podendo
+....Mas o Mouro, instruído nos enganos
+....Mouro, que por piloto à nau lhe mande,
+....Na forma doutro Mouro, que tomara.
+....O Capitão, que em tudo o Mouro cria,
+....O mesmo o falso Mouro determina,
+....O Mouro, e toda a sua companhia;
+....O Mouro, mal querido já de Marte. 
+....O Mouro, nos tais casos sábio e velho,
+....O Mouro, que Monçaide se chamava, 
+....O Mouro o gesto e o modo lhe notava,
+....Para a frota, que o Mouro bem conhece; 
+....Para a frota, que o Mouro ver deseja;
+....Para onde o sonho e o Mouro lhe dizia.
+....Porém disto, que o Mouro aqui notou,
+....Por ser Mouro como eles, antes era 
+....Promete-lhos o Mouro, com tenção
+....Se foi o Mouro ao cógnito aposento.
+....Tal a gente se ajunta a ouvir o Mouro. 
+....Também o Mouro astuto está confuso,
+....Tomar ao Mouro forte e guarnecido
+....Tudo o Mouro contente bem recebe;
+selvagem
+....Selvagem mais que o bruto Polifemo.
+mostrengo
+monstro
+...."Mais ia por diante o monstro horrendo
+cabo
+....- "Eu sou aquele oculto e grande Cabo,
+...."O Cabo vê já Arómata chamado,
+...."Olha o Cabo Asaboro, que chamado
+....Cabo de Jasque, dito já Carpela, 
+....Chamando-se dos nossos Cabo Verde.
+....Co'o cabo a quem das Palmas nome demos.
+....Co Cabo que até'aqui se vos negara,
+....E despois, junto ao Cabo Comorim,
+....Neste remoto cabo converteram
+....O Cabo que co nome se apelida
+....O Cabo Tormentório, que a memória
+....O Capitão o abraça em cabo ledo, 
+....Onde o Cabo Arsinário o nome perde,
+....O Tormentório cabo, e descoberto,
+....Pera o Sul, até o Cabo Comori,
+....Que para nenhum cabo a sombra inclina, 
+$ 
+</code></pre>
+
+<p>Submeta no problema B.</p>
+
+<ol id="footnotes">
+	<li id="fn1">Recorde que, em rigor, a expressão regular é “\s”. Escrevemos com duas barras por causa das regras de escritas de cadeiras literais em Java, onde a barra para trás é um caráter de escape. <a href="http://w3.ualg.pt/~pjguerreiro/sites/26_aed_1516/problems/concordancia/#ffn1">↩︎</a></li>
+</ol>
+
+
+</body></html>
