@@ -1,8 +1,4 @@
-# AED
-
-AED - Algoritmos e Estruturas de Dados (Portuguese)
-
-ADS - Algorithms and Data Structures
+# Algorithms and Data Structures
 
 This class covers the essential information that every serious programmer needs to know about algorithms and data structures, with emphasis on applications and scientific performance analysis of Java implementations. The professors of the class were Pedro Guerreiro and António dos Anjos. Class schedule:
 
