@@ -45,7 +45,7 @@ List of all the problems that me and my colleges had to solve in the class (the 
    [Problem](http://htmlpreview.github.io/?https://github.com/CyrillBrito/AED/blob/master/Concordância/doc/Concordância.html).
    [Solution](https://github.com/CyrillBrito/AED/tree/master/Concordância/src).
 
-* Árvores VaLentes - Binary self-balancing search tree(AVL Tree).  Unfortunately I wasn't abble to finish the hole problem because of the time limit, so the solution in incomplete.
+* Árvores VaLentes - Binary self-balancing search tree(AVL Tree).  Unfortunately I wasn't abble to finish the hole problem because of the time limit, so the solution is incomplete.
    [Problem](http://htmlpreview.github.io/?https://github.com/CyrillBrito/AED/blob/master/Árvores%20VaLentes/doc/Árvores%20VaLentes.html).
    [Solution](https://github.com/CyrillBrito/AED/tree/master/Árvores%20VaLentes/src).
 
